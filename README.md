@@ -1,6 +1,10 @@
-## 파일 시그니처 Header signature(Hex)
+## 파일 시그니처 Header signature(Hex) 
+#### 파일의 처음에 존재하는 시그니처는 헤더(Header)시그니처, 파일의 마지막에 존재하는 시그니처는 푸터(Footer or Tailer)시그니처라고 한다. 
+
+
 <u>JPEG</u> : <br >FF D8 FF E0 
       <br> FF D8 FF E8
+ <br>JPEG의 경우 디지털 카메라로 캡쳐한 파일과 구분하기 위해 FF D8 FF E1의 시그니처를 갖는다.
 
 <mark>GIF<mark/> : <br>47 49 46 38 37 61
       <br>47 49 46 38 39 61 
