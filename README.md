@@ -49,14 +49,14 @@ SELECT * FROM members WHERE username = '''<br>
 
 작은따옴표를 하나 입력했을때 저렇게 에러가 발생한다면<br>
 SQLi 취약점이 있다 . <br>
-
- > ' or 1=1-- - 라고 입력하게 되면<br>
- > SELECT * FROM members WHERE username= 'or 1=1-- - <br>
+' or 1=1-- - 라고 입력하게 되면<br>
+SELECT * FROM members WHERE username= 'or 1=1-- - <br>
 이런식으로 쿼리가 전달되는데 <br>
-> 여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
+여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
 WHERE(조건절)이 항상 참인 결과가 성립<br>
 그리고 닫히지 않은 맨끝의 작은따옴표는 주석(-- -)을 입력해 줌으로써 없애버릴수있다.<br>
-
+<br>
+      
 ---
 ## SQL Injection 구문 <br>
 <br>
@@ -73,6 +73,28 @@ WHERE(조건절)이 항상 참인 결과가 성립<br>
  => SQL 쿼리문을 구성하는 소스코드는 다음과 같을 때 <br>
  $id=$_REQUEST['id'];<br>
  $qurey="SELECT name,emeail FROM users WHERE id = '$id';"; <br>
-
+ <br>
+ => ID파라미터 값($id)이 쿼리문의 일부로 사용됨<br>
+    ** SQLI 취약점 존재 <br>
+ ### WHERE 구문 우회 공격 <br>
+     - 공격자는 SQL 쿼리문을 직접 조작하기 위해 ID값을 바꿔서 입력<br>
+     => 1'or'1'='1<br>
+     => 전체 SQL 쿼리문은 다음과 같이 구성<br>
+     => $query= "SELECT name,email FROM users WHERE id= '1' or '1'='1';";<br>
+     -> or키워드가 삽입되어 WHERE문의 조건이 항상 참('1'='1')이 됨 <br>
+     -> 모든 사용자의 name, email이 공격자에게 전달됨<br>
+<br>
+# 2) UNION 구문 공격 <br>
+  UNION 키워드를 삽입, 그 뒤에 사용자 이름과 패스워드를 요청하는 SELECT 구문(select, name, pw) 삽입 <br>
+  => SELCET name,email FROM users WHERE id = '1' UNION SELECT name,pw FROM users#' <br>
+  > UNION 사이에 두고 SELCET 구문 두 개 가 위치 <br>
+  * UNION = 합집합, 두 개의 SELECT 구문 두 개가 위치 <br>
+  > 뒤의 SELECT 구문에는 WHERE가 따로 없기 때문에 모든 사용자의 name,pw 반환 <br>
+  ** 쿼리문 끝의 #: 주석처리 특수문자. 맨뒤의 ' 문자로인한 에러 방지 <br>
+  => 공격자는 쿼리문을 완성시킨 후 #을 추가하여 다른 SQL 쿼리문은 주석처리 > SQL 형식 에러방지 <br>
+     (데이터베이스 종류에 따라 다른 문자를 입력하여 주석 처리하기도함)<br>
+  => UNION과 추가 SELCET 구문 이용 시 데이터베이스 내의 모든 테이블의 내용을 알아낼 수 있음. <br>
+    
+     
 
 ## 
