@@ -21,14 +21,14 @@
 
 
 ---
-LFI(Local File Inclusion) 취약점 <br>
+##LFI(Local File Inclusion) 취약점 <br>
 서버 내에있는 파일을 불러와 읽을수 있는 취약점<br>
 /robots.txt는 로봇 배제표준이라고하며, 검색 엔진의 접근을제어하기 위한 일종의 규약 <br>
 
 /flag.php<br>
 /index.php<br>
 
-SQLi : DB언어를 이용해 데이터를 불러오고, 또 저장하는데<br>
+##SQLi : DB언어를 이용해 데이터를 불러오고, 또 저장하는데<br>
 서버에서 DB로 전달하는 SQL문을 비인가자가 조작이 가능할 경우 취약점이 발생<br>
 
 SQLI 취약점이 존재하는지 알아볼수있는지 가장 쉬운방법은<br>
@@ -36,6 +36,7 @@ SQLI 취약점이 존재하는지 알아볼수있는지 가장 쉬운방법은<b
 
 SQL 구문 오류가 나는데 SELECT * FROM members WHERE username = '사용자 입력값'<br>
 SQL 쿼리가 위처럼 최초 작성이 되었다. <br>
+<br>
 만약 NAME 칸에 HELLO라고 입력했다면<br>
 SELECT * FROM members WHERE username = 'HELLO'<br>
 이런식으로 DB로 전달이 된다 <br>
@@ -49,10 +50,10 @@ SELECT * FROM members WHERE username = '''<br>
 작은따옴표를 하나 입력했을때 저렇게 에러가 발생한다면<br>
 SQLi 취약점이 있다 . <br>
 
-' or 1=1-- - 라고 입력하게 되면<br>
-SELECT * FROM members WHERE username= '' ore 1=1-- -' <br>
+ > ' or 1=1-- - 라고 입력하게 되면<br>
+ => SELECT * FROM members WHERE username= '' ore 1=1-- -' <br>
 이런식으로 쿼리가 전달되는데 <br>
-여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
+-> 여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
 WHERE(조건절)이 항상 참인 결과가 성립<br>
 그리고 닫히지 않은 맨끝의 작은따옴표는 주석(-- -)을 입력해 줌으로써 없애버릴수있다.<br>
 
