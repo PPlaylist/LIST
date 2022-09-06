@@ -56,6 +56,24 @@ SELECT * FROM members WHERE username= '' ore 1=1-- -' <br>
 WHERE(조건절)이 항상 참인 결과가 성립<br>
 그리고 닫히지 않은 맨끝의 작은따옴표는 주석(-- -)을 입력해 줌으로써 없애버릴수있다.<br>
 
+---
+## SQL Injection 구문 <br>
+<br>
+# 1) WHERE 구문 우회<br>
+ 회원 ID를 입력하여 회원정보를 조회하는 웹 페이지 <br>
+ 1) 사용자가 ID가 1인 사용자 정보를 요청 <br>
+ <br>2) 웹 애플리케이션이 내부의 데이터베이스로 SQL쿼리문 전송 </br> 
+ > SELECT name, email FROM users WHERE ID= '1' <br>
+   => WHERE 조건문이 있는 쿼리문 <br>
+ 3) 데이터베이스가 users라는 사용자 테이블에서 ID가 1인 사용자 정보를 반환 <br>
+ 4) 웹 어플리케이션을 통해 클라이언트까지 전달<br>
+ <br>
+ 
+ => SQL 쿼리문을 구성하는 소스코드는 다음과 같을 때 <br>
+ $id=$_REQUEST['id'];<br>
+ $qurey="SELECT name,emeail FROM users WHERE id = '$id';"; <br>
+ 
+
 
 
 
