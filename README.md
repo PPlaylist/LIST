@@ -51,9 +51,9 @@ SELECT * FROM members WHERE username = '''<br>
 SQLi 취약점이 있다 . <br>
 
  > ' or 1=1-- - 라고 입력하게 되면<br>
- => SELECT * FROM members WHERE username= '' ore 1=1-- -' <br>
+ > SELECT * FROM members WHERE username= 'or 1=1-- - <br>
 이런식으로 쿼리가 전달되는데 <br>
--> 여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
+> 여기서 1=1 TRUE, TURE와 or 하면 그결과 역시 참이기 때문에<br>
 WHERE(조건절)이 항상 참인 결과가 성립<br>
 그리고 닫히지 않은 맨끝의 작은따옴표는 주석(-- -)을 입력해 줌으로써 없애버릴수있다.<br>
 
@@ -73,9 +73,6 @@ WHERE(조건절)이 항상 참인 결과가 성립<br>
  => SQL 쿼리문을 구성하는 소스코드는 다음과 같을 때 <br>
  $id=$_REQUEST['id'];<br>
  $qurey="SELECT name,emeail FROM users WHERE id = '$id';"; <br>
- 
-
-
 
 
 ## 
